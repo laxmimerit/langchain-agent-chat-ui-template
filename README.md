@@ -25,6 +25,10 @@ cd ~
 ```bash
 curl -LsSf https://astral.sh/uv/install.sh | sh
 source ~/.bashrc
+
+# or 
+
+source $HOME/.local/bin/env
 ```
 
 Verify installation:
@@ -57,6 +61,15 @@ Install Node.js 24 LTS (latest):
 ```bash
 nvm install 24
 nvm use 24
+
+
+npm install -g pnpm
+pnpm -v
+# if above is not working then follow below one
+
+corepack enable
+corepack prepare pnpm@latest --activate
+pnpm -v
 ```
 
 Install Yarn:
@@ -102,25 +115,22 @@ Get API keys from:
 git clone https://github.com/laxmimerit/langchain-agent-chat-ui-template.git
 cd langchain-agent-chat-ui-template
 uv sync --upgrade
+uv add -U "langgraph-cli[inmem]"
+uv add -U langgraph-api
 ```
 
 Start LangGraph server:
 ```bash
 langgraph dev --host 0.0.0.0 --allow-blocking
+# or
+uv run langgraph dev --host 0.0.0.0 --allow-blocking
 ```
 
 Server runs on http://localhost:2024
 
-**UI Link:**
+**Langchain Chat UI Link:**
 https://github.com/langchain-ai/agent-chat-ui
 
-#### Lib Setup
-
-uv python install 3.13
-uv venv --python 3.13
-uv sync --upgrade
-uv add -U "langgraph-cli[inmem]"
-uv add -U langgraph-api
 
 ### Deploy on AWS
 Gen AI Environment Setup (Windows): 
@@ -132,3 +142,8 @@ Gen AI Environment Setup (MacOS/Linux):
 $200 AWS Free Credit Setup:
 - https://www.youtube.com/playlist?list=PLc2rvfiptPSRHHDk76XvdfQ3ilX5EnfoV
 
+
+
+### Note
+### SSH
+- ssh -i "~/.ssh/ai-agent-projects.pem" ubuntu@ec2-3-91-185-191.compute-1.amazonaws.com#
